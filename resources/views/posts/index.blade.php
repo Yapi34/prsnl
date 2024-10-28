@@ -37,14 +37,24 @@
         <!-- Your content -->
         <article>
         @foreach ($posts as $post)
-              <h2 class="mb-1 text-3xl tracking-tigh font-bold text-gray-900">{{ $post->title }}</h2>
+              <h2 class="mb-1 mt-4 text-3xl tracking-tigh font-bold text-gray-900">{{ $post->title }}</h2>
               <div class="text-base text-gray-500">
                 {{ $post->created_at->diffForHumans() }}
               </div>
-              <p class="my-4 font-light py-8 max-w-screen-sm border-b border-gray-300">{{ $post->content }}</p>
+              <p class="mt-4 mb-1 font-light pt-4 pb-1 max-w-screen-sm">{{ $post->content }}</p>
+              <div class="border-b border-gray-300 max-w-screen-sm">
+                <a href="{{ route('posts.edit', $post->id) }}" class="text-blue-900 hover:bg-gray-300 hover:text-white' rounded-md px-3 py-2 text-sm font-medium">Edit</a>
+                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="text-blue-900 hover:bg-gray-300 hover:text-white' rounded-md px-3 py-2 text-sm font-medium">Hapus</button>
+                </form>
+              </div>
         @endforeach
         </article>
-        <a href="{{ route('posts.create') }}" class="text-gray-900 hover:bg-gray-300 hover:text-white' rounded-md px-3 py-2 text-sm font-medium">Buat artikel baru</a>
+        <div class="max-w-screen-sm pt-5 text-right">
+          <a href="{{ route('posts.create') }}" class="text-gray-900 hover:bg-gray-300 hover:text-white' rounded-md px-3 py-2 text-sm font-medium">Buat artikel baru</a>
+        </div>
       </div>
     </main>
   </div>

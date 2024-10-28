@@ -34,4 +34,30 @@ class PostController extends Controller
         $posts = Post::all();
         return view('posts.index', compact('posts'));
     }
+    // Method untuk menampilkan form edit
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+    // Method untuk memperbarui post
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+    $post->update($request->all());
+
+    return redirect()->route('posts.index');
+    }
+
+    // Method untuk menghapus post
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('posts.index');
+    }
+
 }
